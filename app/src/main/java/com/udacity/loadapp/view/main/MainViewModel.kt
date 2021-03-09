@@ -3,11 +3,15 @@ package com.udacity.loadapp.view.main
 import android.app.Application
 import android.app.DownloadManager
 import android.net.Uri
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.udacity.loadapp.R
 
 class MainViewModel(private val app: Application) : AndroidViewModel(app) {
+
+    var radioButtonId = MutableLiveData<Int>()
 
     private var downloadID: Long = 0
 
@@ -18,6 +22,8 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
     fun download() {
+        Log.i("MainViewModel", "radioButtonId: ${radioButtonId.value}")
+        return
         val request =
             DownloadManager.Request(Uri.parse(URL))
                 .setTitle(app.getString(R.string.app_name))
