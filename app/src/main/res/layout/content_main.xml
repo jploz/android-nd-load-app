@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
+    tools:context=".view.main.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <ImageView
@@ -53,7 +53,7 @@
             android:text="Retrofit - Type-safe HTTP client for Android and Java by Square, Inc" />
     </RadioGroup>
 
-    <com.udacity.loadapp.LoadingButton
+    <com.udacity.loadapp.view.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
         android:layout_height="60dp"

@@ -1,4 +1,4 @@
-package com.udacity.loadapp
+package com.udacity.loadapp.view.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

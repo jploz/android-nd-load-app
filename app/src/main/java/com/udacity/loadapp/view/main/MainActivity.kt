@@ -1,4 +1,4 @@
-package com.udacity.loadapp
+package com.udacity.loadapp.view.main
 
 import android.app.DownloadManager
 import android.app.NotificationManager
