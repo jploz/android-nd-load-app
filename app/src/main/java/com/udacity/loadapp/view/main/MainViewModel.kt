@@ -2,13 +2,16 @@ package com.udacity.loadapp.view.main
 
 import android.app.Application
 import android.app.DownloadManager
+import android.app.NotificationManager
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.udacity.loadapp.R
+import com.udacity.loadapp.util.sendNotification
 
 class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
@@ -41,6 +44,8 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
         if (url != "") {
             enqueueDownload(url)
+            toastDownloadStarted()
+            sendNotification("Download was started in background.")
         } else {
             toastNoDownloadSelected()
         }
@@ -63,5 +68,17 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
     private fun toastNoDownloadSelected() {
         Toast.makeText(app, app.getString(R.string.no_download_selected), Toast.LENGTH_LONG).show()
+    }
+
+    private fun toastDownloadStarted() {
+        Toast.makeText(app, "Download was started in background.", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun sendNotification(message: String) {
+        val notificationManager = ContextCompat.getSystemService(
+            app,
+            NotificationManager::class.java
+        ) as NotificationManager
+        notificationManager.sendNotification(message, app)
     }
 }
