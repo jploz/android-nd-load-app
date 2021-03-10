@@ -1,12 +1,15 @@
 package com.udacity.loadapp.view.main
 
 import android.app.DownloadManager
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
@@ -43,6 +46,11 @@ class MainActivity : AppCompatActivity() {
         custom_button.setOnClickListener {
             viewModel.download()
         }
+
+        createNotificationChannel(
+            getString(R.string.loadapp_notification_channel_id),
+            getString(R.string.loadapp_notification_channel_name)
+        )
     }
 
     private val receiver = object : BroadcastReceiver() {
@@ -51,4 +59,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun createNotificationChannel(channelId: String, channelName: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.RED
+            notificationChannel.enableVibration(true)
+            notificationChannel.description =
+                getString(R.string.loadapp_notification_channel_description)
+
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+    }
 }
