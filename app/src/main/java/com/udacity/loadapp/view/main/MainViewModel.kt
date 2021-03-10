@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.DownloadManager
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -15,17 +16,39 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
     private var downloadID: Long = 0
 
-    companion object {
-        private const val URL =
-            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val CHANNEL_ID = "channelId"
+    fun download() {
+        val url: String
+        when (radioButtonId.value) {
+
+            R.id.radioButtonGlide -> {
+                url = app.getString(R.string.url_glide)
+            }
+
+            R.id.radioButtonLoadApp -> {
+                url = app.getString(R.string.url_load_app)
+            }
+
+            R.id.radioButtonRetrofit -> {
+                url = app.getString(R.string.url_retrofit)
+            }
+
+            else -> {
+                url = ""
+            }
+        }
+
+        Log.i("MainViewModel", "download: URL = '$url'")
+
+        if (url != "") {
+            enqueueDownload(url)
+        } else {
+            toastNoDownloadSelected()
+        }
     }
 
-    fun download() {
-        Log.i("MainViewModel", "radioButtonId: ${radioButtonId.value}")
-        return
+    private fun enqueueDownload(url: String) {
         val request =
-            DownloadManager.Request(Uri.parse(URL))
+            DownloadManager.Request(Uri.parse(url))
                 .setTitle(app.getString(R.string.app_name))
                 .setDescription(app.getString(R.string.app_description))
                 .setRequiresCharging(false)
@@ -34,7 +57,11 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
         val downloadManager =
             app.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
-        downloadID =
-            downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+
+        downloadID = downloadManager.enqueue(request)
+    }
+
+    private fun toastNoDownloadSelected() {
+        Toast.makeText(app, app.getString(R.string.no_download_selected), Toast.LENGTH_LONG).show()
     }
 }
