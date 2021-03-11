@@ -45,7 +45,6 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
         if (url != "") {
             enqueueDownload(url)
             toastDownloadStarted()
-            sendNotification("Download was started in background.")
         } else {
             toastNoDownloadSelected()
         }
