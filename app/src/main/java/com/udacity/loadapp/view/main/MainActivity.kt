@@ -4,9 +4,6 @@ import android.app.DownloadManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Build
@@ -17,6 +14,7 @@ import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProvider
 import com.udacity.loadapp.R
 import com.udacity.loadapp.databinding.ActivityMainBinding
+import com.udacity.loadapp.receiver.DownloadReceiver
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -30,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
 
+    private val receiver = DownloadReceiver()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity() {
         binding.contentMain.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-
         custom_button.setOnClickListener {
             viewModel.download()
         }
@@ -53,10 +51,17 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private val receiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-        }
+    override fun onStart() {
+        super.onStart()
+        // register receiver for ` download complete` event, it will be unregistered in onStop
+        // thus, this implementation can only receive `download complete` events while this
+        // activity is visible
+        registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(receiver)
     }
 
     private fun createNotificationChannel(channelId: String, channelName: String) {
