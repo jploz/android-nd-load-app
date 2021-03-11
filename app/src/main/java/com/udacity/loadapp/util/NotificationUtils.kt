@@ -33,9 +33,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         applicationContext.resources,
         R.drawable.cloud_download
     )
-    val bigPicStyle = NotificationCompat.BigPictureStyle()
-        .bigPicture(cloudImage)
-        .bigLargeIcon(null)
 
     val builder = NotificationCompat.Builder(
         applicationContext,
@@ -46,7 +43,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .setContentText(messageBody)
         .setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
-        .setStyle(bigPicStyle)
         .setLargeIcon(cloudImage)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
 
