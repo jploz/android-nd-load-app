@@ -10,14 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.udacity.loadapp.R
+import com.udacity.loadapp.util.DownloadRequestsStore
 import com.udacity.loadapp.util.sendNotification
+import kotlinx.coroutines.launch
 
 class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
     var radioButtonId = MutableLiveData<Int>()
 
-    private var downloadID: Long = 0
+    private val downloadIds = DownloadRequestsStore(app)
 
     fun download() {
         val url: String
@@ -62,7 +65,11 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
         val downloadManager =
             app.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
 
-        downloadID = downloadManager.enqueue(request)
+        val downloadId = downloadManager.enqueue(request)
+
+        viewModelScope.launch {
+            downloadIds.add(downloadId)
+        }
     }
 
     private fun toastNoDownloadSelected() {
