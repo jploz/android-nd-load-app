@@ -45,6 +45,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .setAutoCancel(true)
         .setLargeIcon(cloudImage)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
+        .setOnlyAlertOnce(true)
 
     notify(NOTIFICATION_ID, builder.build())
 }

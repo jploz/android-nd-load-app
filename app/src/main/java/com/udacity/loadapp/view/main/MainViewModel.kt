@@ -2,18 +2,15 @@ package com.udacity.loadapp.view.main
 
 import android.app.Application
 import android.app.DownloadManager
-import android.app.NotificationManager
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.udacity.loadapp.R
 import com.udacity.loadapp.util.DownloadRequestsStore
-import com.udacity.loadapp.util.sendNotification
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val app: Application) : AndroidViewModel(app) {
@@ -24,40 +21,44 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
     fun download() {
         val url: String
+        val title: String
         when (radioButtonId.value) {
 
             R.id.radioButtonGlide -> {
                 url = app.getString(R.string.url_glide)
+                title = "Glide source code"
             }
 
             R.id.radioButtonLoadApp -> {
                 url = app.getString(R.string.url_load_app)
+                title = "Udacity project 3 source code"
             }
 
             R.id.radioButtonRetrofit -> {
                 url = app.getString(R.string.url_retrofit)
+                title = "Retrofit source code"
             }
 
             else -> {
                 url = ""
+                title = ""
             }
         }
 
-        Log.i("MainViewModel", "download: URL = '$url'")
+        Log.i("MainViewModel", "download: title = '$title', URL = '$url'")
 
         if (url != "") {
-            enqueueDownload(url)
+            enqueueDownload(url, title)
             toastDownloadStarted()
         } else {
             toastNoDownloadSelected()
         }
     }
 
-    private fun enqueueDownload(url: String) {
+    private fun enqueueDownload(url: String, title: String) {
         val request =
             DownloadManager.Request(Uri.parse(url))
-                .setTitle(app.getString(R.string.app_name))
-                .setDescription(app.getString(R.string.app_description))
+                .setTitle(title)
                 .setRequiresCharging(false)
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true)
@@ -78,13 +79,5 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
     private fun toastDownloadStarted() {
         Toast.makeText(app, "Download was started in background.", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun sendNotification(message: String) {
-        val notificationManager = ContextCompat.getSystemService(
-            app,
-            NotificationManager::class.java
-        ) as NotificationManager
-        notificationManager.sendNotification(message, app)
     }
 }

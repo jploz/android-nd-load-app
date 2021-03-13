@@ -21,7 +21,6 @@ class DownloadRequestsStore(context: Context) {
         withContext(Dispatchers.IO) {
             val encoded = Json.encodeToString(ids)
             Log.i("DownloadRequestStore", "store: ids = '$ids'")
-            Log.i("DownloadRequestStore", "store: encoded = '$encoded'")
             prefs.edit().putString(KEY_DOWNLOAD_IDS, encoded).apply()
         }
     }
@@ -46,7 +45,6 @@ class DownloadRequestsStore(context: Context) {
         val ids = mutableListOf<Long>()
         withContext(Dispatchers.IO) {
             val encoded = prefs.getString(KEY_DOWNLOAD_IDS, "[]")
-            Log.i("DownloadRequestStore", "getAll: encoded = '$encoded'")
             encoded?.let { ids.addAll(Json.decodeFromString<List<Long>>(it)) }
             Log.i("DownloadRequestStore", "getAll: ids = '$ids'")
         }
