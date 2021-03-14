@@ -10,7 +10,7 @@
 
     <string name="button_name">Click me</string>
     <string name="button_loading">We are loading </string>
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_detail">LoadApp Details</string>
 
     <string name="url_glide">https://github.com/bumptech/glide/archive/master.zip</string>
     <string name="url_load_app">https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip</string>

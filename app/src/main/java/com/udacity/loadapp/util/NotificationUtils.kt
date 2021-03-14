@@ -18,9 +18,11 @@ private val FLAGS = 0
  *
  * @param context, activity context.
  */
-fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
+fun NotificationManager.sendNotification(applicationContext: Context, downloadInfo: DownloadInfo) {
     // Create the content intent for the notification, which launches the target activity
     val contentIntent = Intent(applicationContext, DetailActivity::class.java)
+        .putExtra(EXTRA_DETAIL_STATUS, downloadInfo.status)
+        .putExtra(EXTRA_DETAIL_TITLE, downloadInfo.title)
 
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
@@ -40,7 +42,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
     )
         .setSmallIcon(R.drawable.ic_cloud_download)
         .setContentTitle(applicationContext.getString(R.string.notification_title))
-        .setContentText(messageBody)
+        .setContentText(downloadInfo.message)
         .setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
         .setLargeIcon(cloudImage)
