@@ -11,7 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_layout"
+        android:id="@+id/layoutMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -37,7 +37,7 @@
             android:paddingStart="32dp"
             android:paddingTop="32dp"
             android:paddingEnd="32dp"
-            android:paddingBottom="32dp"
+            android:paddingBottom="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -64,7 +64,7 @@
         </RadioGroup>
 
         <com.udacity.loadapp.view.LoadingButton
-            android:id="@+id/custom_button"
+            android:id="@+id/buttonDownload"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_margin="20dp"

@@ -16,7 +16,7 @@ class LoadingButton @JvmOverloads constructor(
 
     private var widthSize = 0
     private var heightSize = 0
-    private val cornerRadius = 16f
+    private val cornerRadius = 8f
     private val spinnerRadius = 32f
 
     private val valueAnimator = ValueAnimator()

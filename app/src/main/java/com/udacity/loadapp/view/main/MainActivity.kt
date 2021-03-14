@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding.contentMain.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        custom_button.setOnClickListener {
+        buttonDownload.setOnClickListener {
             viewModel.download()
         }
 
