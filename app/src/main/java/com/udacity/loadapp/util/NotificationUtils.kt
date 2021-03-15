@@ -48,6 +48,7 @@ fun NotificationManager.sendNotification(applicationContext: Context, downloadIn
         .setLargeIcon(cloudImage)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setOnlyAlertOnce(true)
+        .addAction(0, "Show details", contentPendingIntent)
 
     notify(NOTIFICATION_ID, builder.build())
 }
