@@ -13,13 +13,15 @@ import com.udacity.loadapp.R
 import com.udacity.loadapp.util.DownloadRequestsStore
 import kotlinx.coroutines.launch
 
+
 class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
     var radioButtonId = MutableLiveData<Int>()
 
     private val downloadIds = DownloadRequestsStore(app)
 
-    fun download() {
+    fun download(): Boolean {
+        var downloadStarted = false
         val url: String
         val title: String
         when (radioButtonId.value) {
@@ -49,10 +51,11 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
 
         if (url != "") {
             enqueueDownload(url, title)
-            toastDownloadStarted()
+            downloadStarted = true
         } else {
             toastNoDownloadSelected()
         }
+        return downloadStarted
     }
 
     private fun enqueueDownload(url: String, title: String) {
@@ -74,10 +77,6 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
     private fun toastNoDownloadSelected() {
-        Toast.makeText(app, app.getString(R.string.no_download_selected), Toast.LENGTH_LONG).show()
-    }
-
-    private fun toastDownloadStarted() {
-        Toast.makeText(app, "Download was started in background.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(app, app.getString(R.string.no_download_selected), Toast.LENGTH_SHORT).show()
     }
 }

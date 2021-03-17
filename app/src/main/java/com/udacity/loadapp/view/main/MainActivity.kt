@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProvider
 import com.udacity.loadapp.R
 import com.udacity.loadapp.databinding.ActivityMainBinding
+import com.udacity.loadapp.view.ButtonState
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -37,7 +38,12 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         buttonDownload.setOnClickListener {
-            viewModel.download()
+            buttonDownload.buttonState = ButtonState.Clicked
+            if (viewModel.download()) {
+                buttonDownload.buttonState = ButtonState.Loading
+            } else {
+                buttonDownload.buttonState = ButtonState.Completed
+            }
         }
 
         createNotificationChannel(
