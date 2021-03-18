@@ -32,7 +32,7 @@ class MainViewModel(private val app: Application) : AndroidViewModel(app) {
             }
 
             R.id.radioButtonLoadApp -> {
-                url = app.getString(R.string.url_load_app)
+                url = app.getString(R.string.url_loadapp)
                 title = "Udacity project 3 source code"
             }
 

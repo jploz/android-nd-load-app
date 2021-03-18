@@ -23,7 +23,8 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/hero_image_height"
-            app:srcCompat="@drawable/ic_cloud_download" />
+            app:srcCompat="@drawable/ic_cloud_download"
+            android:contentDescription="@string/description_hero_image" />
 
         <RadioGroup
             android:id="@+id/radioGroup"
@@ -45,21 +46,21 @@
                 android:id="@+id/radioButtonGlide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Glide - Image Loading Library by BumpTech" />
+                android:text="@string/label_glide" />
 
             <RadioButton
                 android:id="@+id/radioButtonLoadApp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="LoadApp - Current repository by Udacity" />
+                android:text="@string/label_loadapp" />
 
             <RadioButton
                 android:id="@+id/radioButtonRetrofit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Retrofit - Type-safe HTTP client for Android and Java by Square, Inc" />
+                android:text="@string/label_retrofit" />
         </RadioGroup>
 
         <com.udacity.loadapp.view.LoadingButton
