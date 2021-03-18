@@ -96,7 +96,7 @@ class LoadingButton @JvmOverloads constructor(
     private var spinnerPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = context.getColor(R.color.colorPrimary)
         strokeWidth = SPINNER_STROKE_WIDTH
-        strokeCap = Paint.Cap.BUTT
+        strokeCap = Paint.Cap.ROUND
         style = Paint.Style.STROKE
     }
 

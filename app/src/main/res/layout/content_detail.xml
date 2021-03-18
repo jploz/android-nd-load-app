@@ -10,10 +10,11 @@
             type="com.udacity.loadapp.view.detail.DetailViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/layoutDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutDescription="@xml/content_detail_scene"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".view.detail.DetailActivity"
         tools:showIn="@layout/activity_detail">
@@ -72,15 +73,10 @@
         <Button
             android:id="@+id/buttonDone"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="48dp"
-            android:padding="16dp"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary"
             android:text="OK"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textColor="@color/white" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
