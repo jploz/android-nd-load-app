@@ -9,14 +9,13 @@ import androidx.core.app.NotificationCompat
 import com.udacity.loadapp.R
 import com.udacity.loadapp.view.detail.DetailActivity
 
-private val NOTIFICATION_ID = 0
-private val REQUEST_CODE = 0
-private val FLAGS = 0
+private const val NOTIFICATION_ID = 0
 
 /**
  * Builds and delivers the notification.
  *
- * @param context, activity context.
+ * @param applicationContext: activity context
+ * @param downloadInfo: extra data about download used for display and passed on
  */
 fun NotificationManager.sendNotification(applicationContext: Context, downloadInfo: DownloadInfo) {
     // Create the content intent for the notification, which launches the target activity
