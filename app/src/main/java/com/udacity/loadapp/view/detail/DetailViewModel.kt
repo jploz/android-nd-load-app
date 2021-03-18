@@ -1,11 +1,10 @@
 package com.udacity.loadapp.view.detail
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-class DetailViewModel(private val app: Application) : AndroidViewModel(app) {
+class DetailViewModel : ViewModel() {
 
     private val _fileName = MutableLiveData<String>()
     val fileName: LiveData<String> = _fileName
