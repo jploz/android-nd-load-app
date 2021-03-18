@@ -1,9 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
-    id 'org.jetbrains.kotlin.android.extensions'
     id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlin_version"
 }
 
@@ -25,6 +23,7 @@ android {
     }
 
     buildFeatures {
+        viewBinding true
         dataBinding true
     }
 }

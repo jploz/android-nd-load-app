@@ -6,13 +6,10 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.ViewModelProvider
 import com.udacity.loadapp.R
 import com.udacity.loadapp.databinding.ActivityMainBinding
 import com.udacity.loadapp.view.ButtonState
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,20 +20,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.contentMain.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        buttonDownload.setOnClickListener {
-            buttonDownload.buttonState = ButtonState.Clicked
+        binding.contentMain.buttonDownload.setOnClickListener {
+            binding.contentMain.buttonDownload.buttonState = ButtonState.Clicked
             if (viewModel.download()) {
-                buttonDownload.buttonState = ButtonState.Loading
+                binding.contentMain.buttonDownload.buttonState = ButtonState.Loading
             } else {
-                buttonDownload.buttonState = ButtonState.Completed
+                binding.contentMain.buttonDownload.buttonState = ButtonState.Completed
             }
         }
 
