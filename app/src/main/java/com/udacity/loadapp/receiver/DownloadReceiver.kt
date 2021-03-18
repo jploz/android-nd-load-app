@@ -37,7 +37,7 @@ class DownloadReceiver : BroadcastReceiver() {
                     val status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))
                     val title = c.getString(c.getColumnIndex(DownloadManager.COLUMN_TITLE))
 
-                    val info = getDownloadInfo(id, status, title)
+                    val info = getDownloadInfo(status, title)
                     sendNotification(context, info)
                 }
                 c.close()

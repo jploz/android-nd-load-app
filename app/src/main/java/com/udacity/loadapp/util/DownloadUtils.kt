@@ -12,17 +12,15 @@ data class DownloadInfo(
 )
 
 fun getDownloadInfo(
-    id: Long,
     status: Int,
     title: String
 ): DownloadInfo {
-    val msg = getMessageForStatus(id, status, title)
+    val msg = getMessageForStatus(status, title)
     val statusAsString = getStatusAsString(status)
     return DownloadInfo(title = title, status = statusAsString, message = msg)
 }
 
 private fun getMessageForStatus(
-    id: Long,
     status: Int,
     title: String
 ): String {
