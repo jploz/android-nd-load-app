@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
@@ -82,22 +81,45 @@ class LoadingButton @JvmOverloads constructor(
             }
 
     // define several paints for later drawing
-    private var initialBgPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.getColor(R.color.colorPrimary)
-    }
-    private var animationPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.getColor(R.color.colorPrimaryDark)
-    }
-    private val textPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        textSize = resources.getDimension(R.dimen.default_text_size)
-        textAlign = Paint.Align.CENTER
-        color = Color.WHITE
-    }
-    private var spinnerPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.getColor(R.color.colorPrimary)
-        strokeWidth = SPINNER_STROKE_WIDTH
-        strokeCap = Paint.Cap.ROUND
-        style = Paint.Style.STROKE
+    private val initialBgPaint: Paint
+    private val animationPaint: Paint
+    private val textPaint: Paint
+    private val spinnerPaint: Paint
+
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LoadingButton)
+        val buttonTextColor = typedArray.getColor(
+            R.styleable.LoadingButton_buttonTextColor,
+            context.getColor(R.color.white)
+        )
+        val buttonBgColor = typedArray.getColor(
+            R.styleable.LoadingButton_buttonBackgroundColor,
+            context.getColor(R.color.colorPrimary)
+        )
+        val buttonAnimationColor = typedArray.getColor(
+            R.styleable.LoadingButton_buttonAnimationColor,
+            context.getColor(R.color.colorPrimaryDark)
+        )
+        typedArray.recycle()
+
+        // define paints
+        initialBgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = buttonBgColor
+        }
+        animationPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = buttonAnimationColor
+        }
+        textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            textSize = resources.getDimension(R.dimen.default_text_size)
+            textAlign = Paint.Align.CENTER
+            color = buttonTextColor
+        }
+        spinnerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = buttonBgColor
+            strokeWidth = SPINNER_STROKE_WIDTH
+            strokeCap = Paint.Cap.ROUND
+            style = Paint.Style.STROKE
+        }
     }
 
     override fun onDraw(canvas: Canvas?) {
